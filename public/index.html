@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AUTOSPM SHARE | PREMIUM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background: radial-gradient(circle at top, #0f172a, #020617);
+    }
+    .glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .neon-input:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 10px #38bdf8;
+    }
+    .glow-button {
+      position: relative;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .glow-button::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: conic-gradient(from 0deg, #38bdf8, #9333ea, #38bdf8);
+      animation: rotate 4s linear infinite;
+      z-index: -1;
+    }
+    .glow-button::after {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      background: #0f172a;
+      z-index: 1;
+    }
+    @keyframes rotate {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+    /* Input wrapper with icon */
+    .input-icon-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-icon-wrapper svg {
+      position: absolute;
+      left: 12px;
+      width: 20px;
+      height: 20px;
+      stroke: #38bdf8;
+      stroke-width: 2;
+    }
+    .input-icon-wrapper input {
+      padding-left: 36px !important; /* leave space for icon */
+    }
+    /* Facebook icon styling */
+    .fb-icon {
+      vertical-align: middle;
+      width: 16px;
+      height: 16px;
+      fill: #3b5998;
+      margin-right: 4px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center text-white p-4 space-y-8">
+
+  <div class="w-full max-w-md glass p-6 rounded-xl shadow-2xl border border-cyan-500/20">
+
+    <h1 class="text-center text-cyan-400 text-xl mb-6 tracking-widest font-bold">AUTOSPM SHARE | PREMIUM</h1>
+
+    <div class="flex flex-col gap-4">
+
+      <div>
+        <label for="cookies" class="text-xs text-cyan-200 mb-1 block flex items-center gap-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 17l-4 4m0 0l-4-4m4 4V3" />
+          </svg>
+          APP STATE
+        </label>
+        <div class="input-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h2l3 9 4-18 3 7 2 3h4" />
+          </svg>
+          <input type="text" id="cookies" placeholder="Enter App State" class="w-full p-3 text-sm bg-transparent border border-cyan-700 neon-input rounded" />
+        </div>
+      </div>
+
+      <div>
+        <label for="urls" class="text-xs text-cyan-200 mb-1 block flex items-center gap-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 14.828a4 4 0 010-5.656m1.414 1.414l-5.656 5.656m0 0l-3.536-3.536m7.071 7.071l-3.536-3.535" />
+          </svg>
+          LINK
+        </label>
+        <div class="input-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14L21 3m-9 11L3 21" />
+          </svg>
+          <input type="text" id="urls" placeholder="Enter Link" class="w-full p-3 text-sm bg-transparent border border-cyan-700 neon-input rounded" />
+        </div>
+      </div>
+
+      <div>
+        <label for="amounts" class="text-xs text-cyan-200 mb-1 block flex items-center gap-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2m8-10h-2m-16 0H2m14.828-6.828l-1.414 1.414M6.586 17.414l-1.414 1.414M17.414 17.414l1.414 1.414M6.586 6.586l1.414-1.414" />
+          </svg>
+          LIMIT
+        </label>
+        <div class="input-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3" />
+            <circle cx="12" cy="12" r="10" stroke-width="2" />
+          </svg>
+          <input type="number" id="amounts" placeholder="Enter Limit" class="w-full p-3 text-sm bg-transparent border border-cyan-700 neon-input rounded" />
+        </div>
+      </div>
+
+      <div>
+        <label for="intervals" class="text-xs text-cyan-200 mb-1 block flex items-center gap-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
+          </svg>
+          DELAY (seconds)
+        </label>
+        <div class="input-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
+          </svg>
+          <input type="number" id="intervals" placeholder="Delay in seconds" class="w-full p-3 text-sm bg-transparent border border-cyan-700 neon-input rounded" />
+        </div>
+      </div>
+
+      <button onclick="submitForm()"
+        class="glow-button text-white relative text-sm font-bold py-3 mt-2 rounded hover:scale-105 transition-transform flex items-center justify-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+        <span class="relative z-10">SUBMIT</span>
+      </button>
+
+      <div id="result"
+        class="hidden mt-3 text-center p-3 rounded bg-cyan-800/30 text-sm font-semibold border border-cyan-500/30">
+      </div>
+    </div>
+
+    <div class="mt-6 text-center text-xs text-cyan-400">
+      ⚠️ Use responsibly. ShareBoost is for personal boosting only.
+    </div>
+    <div class="text-center text-xs text-cyan-300 mt-1 flex justify-center items-center gap-1">
+      <svg class="fb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.73 0-1.325.596-1.325 1.333v21.333c0 .737.596 1.334 1.325 1.334h11.49v-9.284h-3.128v-3.622h3.128v-2.672c0-3.1 1.894-4.788 4.659-4.788 1.325 0 2.466.099 2.797.143v3.24h-1.92c-1.506 0-1.797.718-1.797 1.77v2.31h3.592l-.467 3.622h-3.125V24h6.127c.73 0 1.325-.597 1.325-1.334V1.333c0-.737-.596-1.333-1.325-1.333z"/></svg>
+      <a href="https://www.facebook.com/marjhunft" class="underline" target="_blank">Marjhun Baylon</a>
+    </div>
+
+    <div class="mt-8 text-center text-xs text-cyan-500 italic tracking-wide">
+      Latest Update: <span class="text-cyan-300 font-semibold">v1.2.0 - Added neon glow & animations</span>
+    </div>
+  </div>
+
+  <script>
+    Swal.fire({
+      icon: 'warning',
+      title: 'Use it with own risk!',
+      text: 'AUTOSPM SHARE | PREMIUM is for personal use only.',
+      confirmButtonColor: '#0ea5e9',
+      confirmButtonText: 'I Understand'
+    });
+
+    async function submitForm() {
+      const result = document.getElementById('result');
+      result.classList.add('hidden');
+      try {
+        const response = await fetch('/api/submit', {
+          method: 'POST',
+          body: JSON.stringify({
+            cookie: document.getElementById('cookies').value,
+            url: document.getElementById('urls').value,
+            amount: document.getElementById('amounts').value,
+            interval: document.getElementById('intervals').value,
+          }),
+          headers: { 'Content-Type': 'application/json' },
+        });
+        const data = await response.json();
+        result.classList.remove('hidden');
+        if (data.status === 200) {
+          result.textContent = '✅ Submitted successfully!';
+          result.classList.remove('bg-red-800', 'border-red-600');
+          result.classList.add('bg-cyan-800/80', 'border-cyan-400');
+        } else {
+          result.textContent = '❌ Error: ' + data.error;
+          result.classList.remove('bg-cyan-800/80', 'border-cyan-400');
+          result.classList.add('bg-red-800', 'border-red-600');
+        }
+      } catch (e) {
+        result.classList.remove('hidden');
+        result.textContent = '❌ Error: Could not submit form';
+        result.classList.remove('bg-cyan-800/80', 'border-cyan-400');
+        result.classList.add('bg-red-800', 'border-red-600');
+      }
+    }
+  </script>
+</body>
+</html>
