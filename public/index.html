@@ -1,222 +1,516 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AUTOSPM SHARE | PREMIUM</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AUTOSPM |JHUNDEV</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Rajdhani:wght@500;600&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      font-family: 'Orbitron', sans-serif;
-      background: radial-gradient(circle at top, #0f172a, #020617);
+    :root{
+      --bg-1: #04070b;
+      --panel-glass: rgba(18,22,30,0.42);
+      --panel-glow: rgba(36,138,255,0.12);
+      --accent-1: #38d1ff;
+      --accent-2: #6b5cff;
+      --accent-3: #6ef2a8;
+      --muted: #9fb0c6;
+      --glass-border: rgba(56,209,255,0.08);
+      --glass-border-strong: rgba(107,92,255,0.18);
+      --card-shadow: 0 18px 40px rgba(3,8,20,0.6);
+      --radius-lg: 14px;
+      --radius-md: 10px;
+      --max-width:1200px;
+      --glass-blur: blur(10px);
+      --mono: 'Rajdhani', 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
-    .glass {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:
+        radial-gradient(800px 300px at 10% 10%, rgba(107,92,255,0.03), transparent 8%),
+        radial-gradient(700px 260px at 92% 92%, rgba(56,209,255,0.02), transparent 6%),
+        linear-gradient(180deg,var(--bg-1), #02030a 70%);
+      color:#e6f7ff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;
+      align-items:flex-start;
+      justify-content:center;
+      padding:28px;
+      gap:20px;
+      min-height:100vh;
+      overflow:auto;
     }
-    .neon-input:focus {
-      outline: none;
-      border-color: #38bdf8;
-      box-shadow: 0 0 10px #38bdf8;
-    }
-    .glow-button {
-      position: relative;
+
+    #bg-visual {
+      position: fixed;
+      inset: 0;
       z-index: 0;
-      overflow: hidden;
+      pointer-events: none;
+      mix-blend-mode: screen;
+      opacity: 0.9;
     }
-    .glow-button::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: conic-gradient(from 0deg, #38bdf8, #9333ea, #38bdf8);
-      animation: rotate 4s linear infinite;
+
+    .app {
+      width:100%;
+      max-width:var(--max-width);
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:22px;
+      align-items:start;
+      width:100%;
+    }
+
+    @media (max-width:980px){
+      .app{grid-template-columns:1fr; padding:0 12px}
+    }
+
+    .control {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--radius-lg);
+      padding:26px;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(14px) saturate(120%);
+      transition: transform .22s ease, box-shadow .22s ease;
+      position:relative;
+      overflow:visible;
+    }
+    .control:focus-within{ transform: translateY(-6px); border-color: var(--glass-border-strong); box-shadow: 0 32px 58px rgba(12,18,40,0.65);}
+
+    .header {
+      display:flex;
+      gap:16px;
+      align-items:center;
+      margin-bottom:12px;
+    }
+    .logo {
+      width:64px;height:64px;border-radius:12px;
+      background: linear-gradient(135deg,var(--accent-1), var(--accent-2));
+      box-shadow: 0 12px 30px rgba(107,92,255,0.10), inset 0 -6px 14px rgba(0,0,0,0.18);
+      display:flex;align-items:center;justify-content:center;font-weight:700;color:#021026;font-size:20px;font-family:var(--mono);
+    }
+    .title h1{margin:0;font-family:var(--mono);font-size:20px;color:var(--accent-1);letter-spacing:0.6px}
+    .title p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+
+    form{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+    label.small{font-size:12px;color:var(--muted);display:block;margin-bottom:6px}
+    textarea,input{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));color:#e8f6ff;font-size:14px;outline:none}
+    textarea{min-height:140px;resize:vertical}
+    input[type="number"]{-moz-appearance:textfield}
+    input:focus, textarea:focus{box-shadow:0 10px 28px rgba(56,209,255,0.06);border-color:rgba(56,209,255,0.12);}
+
+    .controls {
+      display:flex;
+      gap:10px;
+      align-items:center;
+      margin-top:6px;
+      flex-wrap:wrap;
+    }
+
+    .btn {
+      display:inline-flex;align-items:center;gap:10px;justify-content:center;padding:12px 16px;border-radius:12px;border:none;cursor:pointer;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));color:#02102b;font-weight:700;font-size:15px;box-shadow:0 12px 34px rgba(43,110,246,0.12);transition:transform .14s ease,box-shadow .14s ease;
+    }
+    .btn.alt {
+      background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);font-weight:600;padding:10px 12px;
+    }
+    .btn:active{transform:translateY(1px)}
+    .status {min-height:28px;font-weight:600;color:var(--accent-1);font-size:13px;margin-left:6px}
+
+  
+    .stats {
+      display:flex;
+      gap:12px;
+      margin-top:14px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+    .stat {
+      flex:1;
+      min-width:140px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;padding:12px;border:1px solid rgba(255,255,255,0.02);
+      text-align:left;box-shadow: 0 10px 30px rgba(2,6,23,0.45);
+    }
+    .stat .num {font-family:var(--mono);font-size:28px;color:var(--accent-1);font-weight:700}
+    .stat .lbl {font-size:12px;color:var(--muted);margin-top:6px}
+
+    .side {
+      display:flex;flex-direction:column;gap:16px;
+      position:relative;
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.007));
+      border-radius:12px;padding:14px;border:1px solid var(--glass-border);
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(12px) saturate(120%);
+    }
+    .live-head {display:flex;justify-content:space-between;align-items:center;gap:8px}
+    .live-head h2{margin:0;color:var(--accent-1);font-size:15px;font-family:var(--mono)}
+    .muted {font-size:12px;color:var(--muted)}
+
+    .table-wrap{overflow:auto;max-height:520px;margin-top:10px}
+    table{width:100%;border-collapse:collapse;font-size:13px;color:#dff6ff}
+    thead th{text-align:left;padding:10px 6px;font-size:12px;background:transparent;color:#e8f9ff;opacity:0.95}
+    tbody td{padding:10px 6px;border-top:1px solid rgba(255,255,255,0.03)}
+    tbody tr{transition:transform .26s cubic-bezier(.2,.9,.2,1), opacity .26s}
+    .url-cell a{color:var(--accent-1);word-break:break-all;text-decoration:none}
+    .url-cell a:hover{text-decoration:underline}
+
+    .progress {height:8px;width:100%;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden;box-shadow:inset 0 -1px 0 rgba(0,0,0,0.3)}
+    .progress-inner {height:100%;width:0%;background:linear-gradient(90deg,var(--accent-1),var(--accent-2));transition:width .6s cubic-bezier(.2,.9,.2,1)}
+
+    footer{color:var(--muted);font-size:12px;text-align:center;margin-top:6px}
+
+    .spin{display:inline-block;width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,0.12);border-top:2px solid var(--accent-1);animation:spinAnim .9s linear infinite;vertical-align:middle;margin-right:8px}
+    @keyframes spinAnim{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+
+    @media (max-width:520px){
+      .logo{width:48px;height:48px;font-size:16px}
+      thead th{display:none}
+      tbody td{display:block;padding:12px;border-top:1px solid rgba(255,255,255,0.03)}
+      tbody tr{margin-bottom:12px;display:block;background:transparent}
+    }
+
+    .glow-border {
+      position:absolute;
+      inset: -2px;
+      border-radius: calc(var(--radius-lg) + 2px);
+      background: linear-gradient(90deg, rgba(56,209,255,0.06), rgba(107,92,255,0.04));
+      filter: blur(12px);
       z-index: -1;
+      pointer-events: none;
     }
-    .glow-button::after {
-      content: "";
-      position: absolute;
-      inset: 2px;
-      background: #0f172a;
-      z-index: 1;
-    }
-    @keyframes rotate {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-    /* Input wrapper with icon */
-    .input-icon-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
-    }
-    .input-icon-wrapper svg {
-      position: absolute;
-      left: 12px;
-      width: 20px;
-      height: 20px;
-      stroke: #38bdf8;
-      stroke-width: 2;
-    }
-    .input-icon-wrapper input {
-      padding-left: 36px !important; /* leave space for icon */
-    }
-    /* Facebook icon styling */
-    .fb-icon {
-      vertical-align: middle;
-      width: 16px;
-      height: 16px;
-      fill: #3b5998;
-      margin-right: 4px;
-    }
+
+    :focus{outline:2px solid rgba(56,209,255,0.10);outline-offset:3px}
   </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center text-white p-4 space-y-8">
+<body>
+  <canvas id="bg-visual" aria-hidden="true"></canvas>
 
-  <div class="w-full max-w-md glass p-6 rounded-xl shadow-2xl border border-cyan-500/20">
+  <main class="app" role="main" aria-labelledby="appTitle">
+    <section class="control" aria-labelledby="panelTitle">
+      <div class="glow-border" aria-hidden="true"></div>
 
-    <h1 class="text-center text-cyan-400 text-xl mb-6 tracking-widest font-bold">AUTOSPM SHARE | PREMIUM</h1>
-
-    <div class="flex flex-col gap-4">
-
-      <div>
-        <label for="cookies" class="text-xs text-cyan-200 mb-1 block flex items-center gap-1">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 17l-4 4m0 0l-4-4m4 4V3" />
-          </svg>
-          APP STATE
-        </label>
-        <div class="input-icon-wrapper">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h2l3 9 4-18 3 7 2 3h4" />
-          </svg>
-          <input type="text" id="cookies" placeholder="Enter App State" class="w-full p-3 text-sm bg-transparent border border-cyan-700 neon-input rounded" />
+      <div class="header">
+        <div class="logo" aria-hidden="true">CR</div>
+        <div class="title">
+          <h1 id="panelTitle">JHUNDEV SPAMSHARE</h1>
+          <p>PREMIUM FB SHARE BOOST</p>
         </div>
       </div>
 
-      <div>
-        <label for="urls" class="text-xs text-cyan-200 mb-1 block flex items-center gap-1">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 14.828a4 4 0 010-5.656m1.414 1.414l-5.656 5.656m0 0l-3.536-3.536m7.071 7.071l-3.536-3.535" />
-          </svg>
-          LINK
-        </label>
-        <div class="input-icon-wrapper">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14L21 3m-9 11L3 21" />
-          </svg>
-          <input type="text" id="urls" placeholder="Enter Link" class="w-full p-3 text-sm bg-transparent border border-cyan-700 neon-input rounded" />
+      <form id="submitForm" autocomplete="off" aria-label="Submission form">
+        <div>
+          <label for="cookie" class="small">AppState JSON (required)</label>
+          <textarea id="cookie" placeholder='Paste AppState JSON here (array)' required aria-required="true"></textarea>
+        </div>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px">
+          <div style="flex:1;min-width:160px">
+            <label for="url" class="small">Facebook Post URL</label>
+            <input id="url" type="text" placeholder="https://facebook.com/..." required />
+          </div>
+          <div style="width:130px">
+            <label for="amount" class="small">Amount</label>
+            <input id="amount" type="number" min="1" placeholder="Amount" required />
+          </div>
+          <div style="width:130px">
+            <label for="interval" class="small">Interval (s)</label>
+            <input id="interval" type="number" min="1" placeholder="Interval" required />
+          </div>
+        </div>
+
+        <div class="controls" role="group" aria-label="submission controls">
+          <button class="btn" type="submit" id="submitBtn" aria-live="polite">SUBMIT</button>
+          <button type="button" class="btn alt" id="stopBtn" aria-live="polite">STOP</button>
+          <div id="submitStatus" class="status" aria-live="polite"></div>
+        </div>
+
+        <div class="stats" aria-hidden="true">
+          <div class="stat" role="status" aria-label="active sessions">
+            <div class="num" id="stat-active">0</div>
+            <div class="lbl">ACTIVE SESSIONS</div>
+          </div>
+          <div class="stat" role="status" aria-label="total sent">
+            <div class="num" id="stat-sent">0</div>
+            <div class="lbl">TOTAL SENT</div>
+          </div>
+          <div class="stat" role="status" aria-label="total targets">
+            <div class="num" id="stat-target">0</div>
+            <div class="lbl">TOTAL TARGET</div>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <aside class="side" aria-labelledby="liveTitle">
+      <div class="card" role="region" aria-labelledby="liveTitle">
+        <div class="live-head">
+          <h2 id="liveTitle">Live Shares</h2>
+          <div class="muted">Auto refresh</div>
+        </div>
+
+        <div class="table-wrap" style="margin-top:12px;">
+          <table role="table" aria-label="Live shares table">
+            <thead>
+              <tr>
+                <th style="width:40px">#</th>
+                <th>Post</th>
+                <th style="width:130px">Progress</th>
+                <th style="width:90px;text-align:right">Sent</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody">
+              <tr><td colspan="4" style="padding:18px;text-align:center;color:var(--muted)">Loading…</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <div>
-        <label for="amounts" class="text-xs text-cyan-200 mb-1 block flex items-center gap-1">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3z" />
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2m8-10h-2m-16 0H2m14.828-6.828l-1.414 1.414M6.586 17.414l-1.414 1.414M17.414 17.414l1.414 1.414M6.586 6.586l1.414-1.414" />
-          </svg>
-          LIMIT
-        </label>
-        <div class="input-icon-wrapper">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3" />
-            <circle cx="12" cy="12" r="10" stroke-width="2" />
-          </svg>
-          <input type="number" id="amounts" placeholder="Enter Limit" class="w-full p-3 text-sm bg-transparent border border-cyan-700 neon-input rounded" />
+      <div class="card" style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-weight:700;color:var(--accent-1)">Telemetry</div>
+          <div class="muted" id="telemetry">Last updated: —</div>
+        </div>
+        <div style="text-align:right">
+          <div class="muted" style="font-size:13px">Panel</div>
+          <div style="font-weight:700;color:var(--accent-2);font-family:var(--mono)">v2.0</div>
         </div>
       </div>
 
-      <div>
-        <label for="intervals" class="text-xs text-cyan-200 mb-1 block flex items-center gap-1">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
-          </svg>
-          DELAY (seconds)
-        </label>
-        <div class="input-icon-wrapper">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2" />
-          </svg>
-          <input type="number" id="intervals" placeholder="Delay in seconds" class="w-full p-3 text-sm bg-transparent border border-cyan-700 neon-input rounded" />
-        </div>
-      </div>
-
-      <button onclick="submitForm()"
-        class="glow-button text-white relative text-sm font-bold py-3 mt-2 rounded hover:scale-105 transition-transform flex items-center justify-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
-        </svg>
-        <span class="relative z-10">SUBMIT</span>
-      </button>
-
-      <div id="result"
-        class="hidden mt-3 text-center p-3 rounded bg-cyan-800/30 text-sm font-semibold border border-cyan-500/30">
-      </div>
-    </div>
-
-    <div class="mt-6 text-center text-xs text-cyan-400">
-      ⚠️ Use responsibly. ShareBoost is for personal boosting only.
-    </div>
-    <div class="text-center text-xs text-cyan-300 mt-1 flex justify-center items-center gap-1">
-      <svg class="fb-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.73 0-1.325.596-1.325 1.333v21.333c0 .737.596 1.334 1.325 1.334h11.49v-9.284h-3.128v-3.622h3.128v-2.672c0-3.1 1.894-4.788 4.659-4.788 1.325 0 2.466.099 2.797.143v3.24h-1.92c-1.506 0-1.797.718-1.797 1.77v2.31h3.592l-.467 3.622h-3.125V24h6.127c.73 0 1.325-.597 1.325-1.334V1.333c0-.737-.596-1.333-1.325-1.333z"/></svg>
-      <a href="https://www.facebook.com/marjhunft" class="underline" target="_blank">Marjhun Baylon</a>
-    </div>
-
-    <div class="mt-8 text-center text-xs text-cyan-500 italic tracking-wide">
-      Latest Update: <span class="text-cyan-300 font-semibold">v1.2.0 - Added neon glow & animations</span>
-    </div>
-  </div>
+      <footer>© 2025 AUTOSPM • JHUNDEV</footer>
+    </aside>
+  </main>
 
   <script>
-    Swal.fire({
-      icon: 'warning',
-      title: 'Use it with own risk!',
-      text: 'AUTOSPM SHARE | PREMIUM is for personal use only.',
-      confirmButtonColor: '#0ea5e9',
-      confirmButtonText: 'I Understand'
-    });
+    (function(){
+      const canvas = document.getElementById('bg-visual');
+      const ctx = canvas.getContext('2d');
+      let w = canvas.width = innerWidth;
+      let h = canvas.height = innerHeight;
+      const DPR = Math.max(1, window.devicePixelRatio || 1);
+      canvas.width = w * DPR;
+      canvas.height = h * DPR;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.scale(DPR, DPR);
 
-    async function submitForm() {
-      const result = document.getElementById('result');
-      result.classList.add('hidden');
-      try {
-        const response = await fetch('/api/submit', {
-          method: 'POST',
-          body: JSON.stringify({
-            cookie: document.getElementById('cookies').value,
-            url: document.getElementById('urls').value,
-            amount: document.getElementById('amounts').value,
-            interval: document.getElementById('intervals').value,
-          }),
-          headers: { 'Content-Type': 'application/json' },
-        });
-        const data = await response.json();
-        result.classList.remove('hidden');
-        if (data.status === 200) {
-          result.textContent = '✅ Submitted successfully!';
-          result.classList.remove('bg-red-800', 'border-red-600');
-          result.classList.add('bg-cyan-800/80', 'border-cyan-400');
+      const particles = [];
+      const COUNT = Math.min(90, Math.floor((w*h)/85000));
+      function rand(min,max){return Math.random()*(max-min)+min}
+      class P{constructor(){this.reset(true)} reset(init=false){this.x=rand(0,w);this.y=rand(0,h);this.vx=rand(-0.2,0.2);this.vy=rand(-0.2,0.2);this.s=rand(0.4,1.8);this.a=rand(0.08,0.35);if(!init){this.x=rand(w*0.2,w*0.8);this.y=rand(h*0.2,h*0.8)}} step(){this.x+=this.vx;this.y+=this.vy;this.a*=0.999; if(this.x<-20||this.x>w+20||this.y<-20||this.y>h+20||this.a<0.02) this.reset()} draw(){ctx.beginPath(); ctx.fillStyle='rgba(46,158,255,'+this.a+')'; ctx.arc(this.x,this.y,this.s,0,Math.PI*2); ctx.fill()} }
+      for(let i=0;i<COUNT;i++)particles.push(new P());
+      function frame(){
+        ctx.clearRect(0,0,w,h);
+        const rg = ctx.createRadialGradient(w*0.85,h*0.12,0,w*0.85,h*0.12,Math.max(w,h)/1.2);
+        rg.addColorStop(0,'rgba(56,209,255,0.02)');
+        rg.addColorStop(1,'rgba(2,6,23,0.0)');
+        ctx.fillStyle = rg; ctx.fillRect(0,0,w,h);
+
+        ctx.beginPath();
+        ctx.strokeStyle = 'rgba(255,255,255,0.01)';
+        ctx.lineWidth = 1;
+        const spacing = Math.max(80, Math.floor(w/12));
+        for(let x = spacing; x < w; x += spacing){ ctx.moveTo(x,0); ctx.lineTo(x,h); }
+        for(let y = spacing; y < h; y += spacing){ ctx.moveTo(0,y); ctx.lineTo(w,y); }
+        ctx.stroke();
+
+        for(const p of particles){ p.step(); p.draw(); }
+        requestAnimationFrame(frame);
+      }
+      window.addEventListener('resize', ()=>{ w = canvas.width = innerWidth; h = canvas.height = innerHeight; canvas.width = w * DPR; canvas.height = h * DPR; canvas.style.width = w+'px'; canvas.style.height = h+'px'; ctx.scale(DPR, DPR); });
+      frame();
+    })();
+
+
+    const tableBody = document.getElementById('tableBody');
+    const statActive = document.getElementById('stat-active');
+    const statSent = document.getElementById('stat-sent');
+    const statTarget = document.getElementById('stat-target');
+    const telemetry = document.getElementById('telemetry');
+    const statusBox = document.getElementById('submitStatus');
+    const submitBtn = document.getElementById('submitBtn');
+    const stopBtn = document.getElementById('stopBtn');
+
+    let lastTotals = {active:0, sent:0, target:0};
+    const lastCounts = new Map();
+    let polling = true;
+
+    function animateNumber(el, start, end, duration=700){
+      const diff = end - start;
+      const startTime = performance.now();
+      function tick(now){
+        const t = Math.min(1,(now-startTime)/duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const val = Math.floor(start + diff * eased);
+        el.textContent = val.toLocaleString();
+        if(t < 1) requestAnimationFrame(tick); else el.textContent = end.toLocaleString();
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function setProgress(el, percent){
+      const inner = el.querySelector('.progress-inner');
+      if(inner) inner.style.width = Math.max(0, Math.min(100, percent)) + '%';
+    }
+
+    function escapeHtml(s){
+      if(!s) return '';
+      return s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+    }
+    function escapeShort(s, len){
+      if(!s) return '';
+      if(s.length <= len) return escapeHtml(s);
+      return escapeHtml(s.slice(0, len-3)) + '...';
+    }
+
+    function buildRow(row){
+      const urlHtml = '<div class="url-cell"><a href="'+escapeHtml(row.url)+'" target="_blank" rel="noopener noreferrer">'+escapeShort(row.url,48)+'</a></div>';
+      const progress = row.target ? (row.count / row.target) * 100 : 0;
+      return `<tr data-session="${row.session}"><td style="width:40px">${row.session}</td><td>${urlHtml}</td><td style="width:130px"><div class="progress" aria-hidden="true"><div class="progress-inner" style="width:${Math.min(100,progress)}%"></div></div></td><td style="width:90px;text-align:right">${Number(row.count||0).toLocaleString()}</td></tr>`;
+    }
+
+    function animateCellNumber(cell, startVal, endVal){
+      const duration = 650;
+      const startTime = performance.now();
+      function tick(now){
+        const t = Math.min(1,(now-startTime)/duration);
+        const eased = 1 - Math.pow(1 - t, 3);
+        const v = Math.floor(startVal + (endVal - startVal) * eased);
+        cell.innerHTML = '<div style="text-align:right;font-weight:700">' + v.toLocaleString() + '</div>';
+        if(t < 1) requestAnimationFrame(tick); else cell.innerHTML = '<div style="text-align:right;font-weight:700">' + endVal.toLocaleString() + '</div>';
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function renderTable(newData){
+      const totals = {active: newData.length, sent: 0, target: 0};
+      newData.forEach(r => { totals.sent += Number(r.count||0); totals.target += Number(r.target||0); });
+
+      animateNumber(statActive, lastTotals.active, totals.active);
+      animateNumber(statSent, lastTotals.sent, totals.sent);
+      animateNumber(statTarget, lastTotals.target, totals.target);
+      lastTotals = totals;
+
+      const existing = {};
+      Array.from(tableBody.querySelectorAll('tr[data-session]')).forEach(tr => { existing[tr.getAttribute('data-session')] = tr; });
+
+      newData.forEach(row => {
+        const sess = String(row.session);
+        const prevCount = Number(lastCounts.get(row.session) || 0);
+        const newCount = Number(row.count || 0);
+
+        if(existing[sess]){
+          const tr = existing[sess];
+          const numericCell = tr.querySelector('td:last-child');
+          animateCellNumber(numericCell, prevCount, newCount);
+          const progressCell = tr.querySelector('.progress');
+          if(progressCell) setProgress(progressCell, (row.target ? (newCount / row.target)*100 : 0));
+          const urlAnchor = tr.querySelector('.url-cell a');
+          if(urlAnchor && urlAnchor.href !== row.url) urlAnchor.href = row.url;
+          delete existing[sess];
         } else {
-          result.textContent = '❌ Error: ' + data.error;
-          result.classList.remove('bg-cyan-800/80', 'border-cyan-400');
-          result.classList.add('bg-red-800', 'border-red-600');
+          tableBody.insertAdjacentHTML('beforeend', buildRow(row));
+          const added = tableBody.querySelector('tr[data-session="'+sess+'"]');
+          const numCell = added.querySelector('td:last-child');
+          animateCellNumber(numCell, 0, newCount);
         }
-      } catch (e) {
-        result.classList.remove('hidden');
-        result.textContent = '❌ Error: Could not submit form';
-        result.classList.remove('bg-cyan-800/80', 'border-cyan-400');
-        result.classList.add('bg-red-800', 'border-red-600');
+        lastCounts.set(row.session, newCount);
+      });
+
+      Object.keys(existing).forEach(k => {
+        const tr = existing[k];
+        tr.style.opacity = 0; tr.style.transform = 'translateY(6px)';
+        setTimeout(()=>{ tr.remove(); }, 300);
+        lastCounts.delete(Number(k));
+      });
+
+      if(newData.length === 0){
+        tableBody.innerHTML = '<tr><td colspan="4" style="padding:18px;text-align:center;color:var(--muted)">No active shares</td></tr>';
       }
     }
+
+    async function fetchTotal(){
+      try{
+        const res = await fetch('/total', {cache: 'no-store'});
+        if(!res.ok) throw new Error('Network response not ok');
+        const data = await res.json();
+        const ordered = (Array.isArray(data) ? data : []).sort((a,b) => (a.session||0) - (b.session||0));
+        renderTable(ordered);
+        telemetry.textContent = 'Last updated: ' + new Date().toLocaleTimeString();
+      } catch(err){
+        tableBody.innerHTML = '<tr><td colspan="4" style="padding:18px;text-align:center;color:#ff9b9b">Failed to load data</td></tr>';
+        telemetry.textContent = 'Error fetching data';
+      }
+    }
+
+    fetchTotal();
+    const INTERVAL = 2500;
+    setInterval(()=>{ if(polling) fetchTotal(); }, INTERVAL);
+
+    const form = document.getElementById('submitForm');
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const cookie = document.getElementById('cookie').value.trim();
+      const url = document.getElementById('url').value.trim();
+      const amount = document.getElementById('amount').value;
+      const interval = document.getElementById('interval').value;
+
+      if(!cookie || !url || !amount || !interval){
+        statusBox.textContent = 'Please fill all fields';
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = 0.8;
+      statusBox.innerHTML = '<span class="spin" aria-hidden="true"></span>Deploying...';
+
+      try{
+        const res = await fetch('/api/submit', {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify({cookie, url, amount, interval})
+        });
+        const body = await res.json();
+        if(res.ok && body && body.status === 200){
+          statusBox.textContent = '✅ Submitted';
+          form.reset();
+          fetchTotal();
+        } else {
+          statusBox.textContent = '❌ ' + (body && (body.error || body.message) ? (body.error||body.message) : 'Submission failed');
+        }
+      } catch(err){
+        statusBox.textContent = '❌ ' + (err.message || 'Network error');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = 1;
+        setTimeout(()=>{ statusBox.textContent = ''; }, 4200);
+      }
+    });
+
+    stopBtn.addEventListener('click', () => {
+      polling = false;
+      statusBox.textContent = '⏹ Polling stopped';
+      setTimeout(()=>{ statusBox.textContent = ''; }, 2200);
+    });
+
+    window.addEventListener('keydown', (e) => {
+      if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'p'){ 
+        polling = !polling;
+        statusBox.textContent = polling ? '▶ Polling resumed' : '⏸ Polling paused';
+        setTimeout(()=>{ statusBox.textContent = ''; }, 1600);
+      }
+    });
   </script>
 </body>
 </html>
